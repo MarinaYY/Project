@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package javaapplication1;
+package javaaplication1;
 
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
@@ -203,38 +203,7 @@ public class ThirdPage extends javax.swing.JFrame {
     int br;
     int i;
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        int[] arr = new int[]{slider1, slider2, slider3, slider4, slider5};
-        int max = 0;
-        br = 0;
-        for (i = 0; i < arr.length; i++) {
-            if (arr[i] > max) {
-                max = arr[i];
-                br = i;
-            }
-        }
-        if (br == 0) {
-            result = "Адвокат";
-        } else if (br == 1) {
-            result = "Полицай";
-        } else if (br == 2) {
-            result = "Доктор";
-        } else if (br == 3) {
-            result = "Офис работник";
-        } else if (br == 4) {
-            result = "Учител";
-        }
-        /*switch (i) {
-            case 0:
-                result = "Адвокат";
-            case 1:
-                result = "Полицай";
-            case 2:
-                result = "Доктор";
-            case 3:
-                result = "Офис работник";
-            case 4:
-                result = "Учител";
-        }*/
+
         FinalPage end = new FinalPage();
         end.setVisible(true);
         close();
@@ -265,7 +234,7 @@ public class ThirdPage extends javax.swing.JFrame {
                 br = i;
             }
         }
-        if (br == 0) {
+       /* if (br == 0) {
             result = "Адвокат";
         } else if (br == 1) {
             result = "Полицай";
@@ -275,8 +244,8 @@ public class ThirdPage extends javax.swing.JFrame {
             result = "Офис работник";
         } else if (br == 4) {
             result = "Учител";
-        }
-        /*switch (i) {
+        }*/
+        switch (br) {
             case 0:
                 result = "Адвокат";
             case 1:
@@ -287,7 +256,7 @@ public class ThirdPage extends javax.swing.JFrame {
                 result = "Офис работник";
             case 4:
                 result = "Учител";
-        }*/
+        }
         return result;
     }
 
