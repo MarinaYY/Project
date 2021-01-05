@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package javaapplication1;
+package javaaplication1;
 
 /**
  *
@@ -16,9 +16,6 @@ public class FinalPage extends javax.swing.JFrame {
      */
     public FinalPage() {
         initComponents();
-        ThirdPage result;
-        result = new ThirdPage();
-        jLabel2.setText(result.newResult());
         
     }
 
