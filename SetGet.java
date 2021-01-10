@@ -1,4 +1,8 @@
-package javaapplication1;
+package javaaplication1;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 /**
  *
@@ -13,11 +17,12 @@ public class SetGet {
     }
 
     public void setFirstName(String firstName) {
-        if (firstName == null) {
-            throw new NullPointerException();
+        if (firstName != null) {
+            
+            this.firstName = firstName;
 
         } else {
-            this.firstName = firstName;
+            throw new NullPointerException();
         }
     }
 
@@ -26,11 +31,12 @@ public class SetGet {
     }
 
     public void setLastName(String lastName) {
-        if (lastName == null) {
-            throw new NullPointerException();
+        if (lastName != null) {
+            
+            this.lastName = lastName;
 
         } else {
-            this.lastName = lastName;
+            throw new NullPointerException();
         }
     }
 
@@ -38,14 +44,15 @@ public class SetGet {
         return email;
     }
 
-    public void setEmail(String email) {
-        if (email == null) {
-
-            throw new NullPointerException();
-        } else {
+    public void setEmail(String email) throws WrongEmailException {
+        Pattern mail1 = Pattern.compile("\\w+@\\w+\\.[a-zA-Z]{2,3}");
+        Matcher mail2 = mail1.matcher(email);
+        if (mail2.matches() == true) {
             this.email = email;
         }
-
+    else{
+        throw new WrongEmailException();
+    }
     }
 
     public String getPassword() {
@@ -53,11 +60,12 @@ public class SetGet {
     }
 
     public void setPassword(String password) {
-        if (password == null) {
-            throw new NullPointerException();
+        if (password != null) {
+            this.password = password;
+            
 
         } else {
-            this.password = password;
+           throw new NullPointerException();
         }
     }
 
@@ -65,12 +73,11 @@ public class SetGet {
         return password2;
     }
 
-    public void setPassword2(String password2) {
-        if (password2 == null) {
-
-            throw new NullPointerException();
+    public void setPassword2(String password2) throws WrongSecondPassword {
+        if (password2.equals(getPassword())) {
+            this.password2 = password2;    
         } else {
-            this.password2 = password2;
+            throw new WrongSecondPassword();
         }
     }
 
@@ -78,7 +85,7 @@ public class SetGet {
         return String.format("%s %s %s %s %s %n", getFirstName(), getLastName(), getEmail(), getPassword(), getPassword2());
     }
 
-    public SetGet(String firstName, String lastName, String email, String password, String passwprd2) {
+    public SetGet(String firstName, String lastName, String email, String password, String password2) throws WrongSecondPassword, WrongEmailException {
         setFirstName(firstName);
         setLastName(lastName);
         setEmail(email);
@@ -86,11 +93,11 @@ public class SetGet {
         setPassword2(password2);
     }
 
-    public SetGet() {
+    public SetGet() throws WrongSecondPassword, WrongEmailException {
         this("-", "-", "-", "-", "-");
     }
 
-    public SetGet(SetGet obj) {
+    public SetGet(SetGet obj) throws WrongSecondPassword, WrongEmailException {
         this(obj.getFirstName(), obj.getLastName(), obj.getEmail(), obj.getPassword(), obj.getPassword2());
     }
 }
