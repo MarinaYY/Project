@@ -1,4 +1,4 @@
-package javaapplication1;
+package javaaplication1;
 
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
@@ -9,6 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 /**
  *
@@ -45,6 +46,7 @@ public class SecondPage extends javax.swing.JFrame {
         txt_email = new javax.swing.JTextField();
         txt_password = new javax.swing.JTextField();
         txt_password2 = new javax.swing.JTextField();
+        btn_check = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setFocusCycleRoot(false);
@@ -60,6 +62,7 @@ public class SecondPage extends javax.swing.JFrame {
             }
         });
 
+        txt_error.setEditable(false);
         txt_error.setColumns(20);
         txt_error.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         txt_error.setRows(5);
@@ -142,6 +145,14 @@ public class SecondPage extends javax.swing.JFrame {
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
+        btn_check.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
+        btn_check.setText("Провери");
+        btn_check.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_checkActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -163,8 +174,10 @@ public class SecondPage extends javax.swing.JFrame {
                                 .addGap(111, 111, 111))))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btn_start, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(263, 263, 263))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btn_check, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_start, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE))
+                .addGap(239, 239, 239))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -173,9 +186,11 @@ public class SecondPage extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addComponent(btn_check, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(btn_start, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
+                .addGap(40, 40, 40)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(45, 45, 45))
         );
@@ -200,41 +215,52 @@ public class SecondPage extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-SetGet obj;
-    private String error = "";
+
     private void btn_startActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_startActionPerformed
         close();
+        ThirdPage test;
+        test = new ThirdPage();
+        test.setVisible(true);
+    }//GEN-LAST:event_btn_startActionPerformed
+
+    private void txt_emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_emailActionPerformed
+
+    }//GEN-LAST:event_txt_emailActionPerformed
+    SetGet obj;
+    private void btn_checkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_checkActionPerformed
+        String error = "";
+        txt_error.setText(null);
         try {
             obj = new SetGet(txt_firstName.getText(), txt_lastName.getText(), txt_email.getText(), txt_password.getText(), txt_password2.getText());
-            check();
-            if (dublicate() == false && "".equals(error)) {
+            obj.setFirstName(txt_firstName.getText());
+            obj.setLastName(txt_lastName.getText());
+            obj.setEmail(txt_email.getText());
+            obj.setPassword(txt_password.getText());
+            obj.setPassword2(txt_password2.getText());
+            //System.out.println(obj.getFirstName() + " " + obj.getLastName() + " " + obj.getEmail() + " "+ obj.getPassword() + " " + obj.getPassword2());
+            if (dublicate() == false) {
                 write();
             } else {
                 error += "Вече съществува потребител със същия имейл адрес\n";
             }
-            ThirdPage test;
-            test = new ThirdPage();
-            test.setVisible(true);
-        } catch (NullPointerException e) {
-            System.out.println("NullPointerException");
+            /*obj.setFirstName(null);
+            obj.setLastName(null);
+            obj.setEmail(null);
+            obj.setPassword(null);
+            obj.setPassword2(null);*/
+
+        } catch (WrongSecondPassword e3) {
+            System.out.println("WrongSecondPassword");
+            error += "Грешна втора парола\n";
+        } catch (WrongEmailException e2) {
+            System.out.println("WrongEmailException");
+            error += "Грешен имейл\n";
+        } catch (NullPointerException e1) {
+            error += "Грешка\n";
         }
+        System.out.println(error);
         txt_error.setText(error);
-
-    }//GEN-LAST:event_btn_startActionPerformed
-
-    private void txt_emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_emailActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_emailActionPerformed
-    public void check() {
-        Pattern mail1 = Pattern.compile("\\w+@\\w+\\.[a-zA-Z]{2,3}");
-        Matcher mail2 = mail1.matcher(obj.getEmail());
-        if (mail2.matches() == false) {
-            error += "Грешно въведен имейл\n";
-        }
-        if (!(obj.getPassword2().equals(obj.getPassword()))) {
-            error += "Грешна парола\n";
-        }
-    }
+    }//GEN-LAST:event_btn_checkActionPerformed
 
     public void write() {
         FileWriter file = null;
@@ -250,21 +276,32 @@ SetGet obj;
     }
 
     public boolean dublicate() {
-        BufferedReader br = null;
+        BufferedReader br1 = null, br2 = null;
         FileReader file = null;
         boolean b = false;
         try {
             file = new FileReader("D:\\project.txt");
-            br = new BufferedReader(file);
-            String line = br.readLine();
-            while (line != null) {
-                String text[] = line.split(" ");
-                if (text[2].equals(obj.getEmail())) {
-                    b = true;
+            br1 = new BufferedReader(file);
+            /*String line1 = br1.readLine();
+            String all = "";
+            while (line1 != null) {
+                all += line1;
+                line1 = br1.readLine();
+            }*/
+            br2 = new BufferedReader(file);
+            String line2 = br2.readLine();
+            //if (!(all.equals(""))) {
+                while (line2 != null) {
+                    String text[] = line2.split(" ");
+                    if (line2.length() != 0 && text[2].equals(obj.getEmail())) {
+                        b = true;
+                    }
+                    line2 = br2.readLine();
                 }
-                line = br.readLine();
-            }
-            br.close();
+            //}
+
+            //br1.close();
+            br2.close();
 
         } catch (IOException ioe) {
             System.out.println("IOException");
@@ -307,6 +344,7 @@ SetGet obj;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_check;
     private javax.swing.JButton btn_start;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
