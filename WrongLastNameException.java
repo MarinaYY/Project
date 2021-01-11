@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package projec;
+package javaaplication1;
 
 /**
  *
- * @author Mina
+ * @author Marina
  */
 class WrongLastNameException extends Exception{
     public WrongLastNameException(){
@@ -15,5 +15,5 @@ class WrongLastNameException extends Exception{
     }
     public WrongLastNameException(String errorMessage){
         super("WrongLastNameException" + errorMessage);
-    }
+    } 
 }
