@@ -1,4 +1,4 @@
-package javaapplication1;
+package project;
 
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
@@ -60,6 +60,7 @@ public class SecondPage extends javax.swing.JFrame {
             }
         });
 
+        txt_error.setEditable(false);
         txt_error.setColumns(20);
         txt_error.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         txt_error.setRows(5);
@@ -203,7 +204,9 @@ public class SecondPage extends javax.swing.JFrame {
 SetGet obj;
     private String error = "";
     private void btn_startActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_startActionPerformed
+        //връзка която затваря стария прозорец
         close();
+        //някъде в try прави грешка и всичко го извежда като nullpointerexceprion или не са навързани добре нещата от setget с нещата тук
         try {
             obj = new SetGet(txt_firstName.getText(), txt_lastName.getText(), txt_email.getText(), txt_password.getText(), txt_password2.getText());
             check();
@@ -219,28 +222,65 @@ SetGet obj;
             System.out.println("NullPointerException");
         }
         txt_error.setText(error);
-
+        
     }//GEN-LAST:event_btn_startActionPerformed
 
     private void txt_emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_emailActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_emailActionPerformed
     public void check() {
-        Pattern mail1 = Pattern.compile("\\w+@\\w+\\.[a-zA-Z]{2,3}");
+        Pattern mail1 = Pattern.compile("\\w+@\\w+\\.[a-zA-Z]{2,3}", Pattern.LITERAL);
         Matcher mail2 = mail1.matcher(obj.getEmail());
         if (mail2.matches() == false) {
-            error += "Грешно въведен имейл\n";
+            //error += "Грешно въведен имейл\n";
+            System.out.println("Грешно въведен имейл");
         }
         if (!(obj.getPassword2().equals(obj.getPassword()))) {
-            error += "Грешна парола\n";
+            //error += "Грешна парола\n";
+            System.out.println("Грешна парола");
         }
     }
-
+    
+    //дали името е ок?
+    // не записва
+ public void checkFirstName(){
+     //да започва с главна буква
+     Pattern firstName = Pattern.compile("\\p{Alpha}" + "^[A-Z]", Pattern.CASE_INSENSITIVE);
+     Matcher firstName2 = firstName.matcher(obj.getFirstName());
+     if(firstName2.matches() == false){
+        // error += "Грешно въведено име\n";
+         System.out.println("Грешно въведено име");
+     }
+ }
+ 
+ public void checkLastName(){
+     Pattern lastName = Pattern.compile("\\p{Alpha}" + "^[A-Z]", Pattern.CASE_INSENSITIVE);
+     Matcher lastName2 = lastName.matcher(obj.getLastName());
+     if(lastName2.matches() == false){
+         //error += "Грешно въведено име\n";
+         System.out.println("Грешно въведено име");
+     }
+ }
+ 
+ public void checkPassword(){
+     Pattern pass = Pattern.compile("", Pattern.LITERAL);
+     Matcher pass2 = pass.matcher(obj.getPassword());
+     if(pass2.matches() == false){
+         System.out.println("Грешно въведена парола");
+     }
+ }
+ 
+ public void checkPasswordCheck(){
+    if(obj.getPassword() != obj.getPassword2()){
+        System.out.println("Грешна парола");
+    }
+ }
+//не записва имена и фамилии с главни букви!!!!!!
     public void write() {
         FileWriter file = null;
         BufferedWriter br = null;
         try {
-            file = new FileWriter("D:\\project.txt", true);
+            file = new FileWriter("F:\\school\\New Folder\\Project\\project.txt", true);
             br = new BufferedWriter(file);
             br.write(obj.toString());
             br.close();
@@ -254,7 +294,7 @@ SetGet obj;
         FileReader file = null;
         boolean b = false;
         try {
-            file = new FileReader("D:\\project.txt");
+            file = new FileReader("F:\\school\\New Folder\\Project\\project.txt");
             br = new BufferedReader(file);
             String line = br.readLine();
             while (line != null) {
