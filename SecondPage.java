@@ -98,10 +98,6 @@ public class SecondPage extends javax.swing.JFrame {
             }
         });
 
-        txt_password.setText("jPasswordField1");
-
-        txt_password2.setText("jPasswordField2");
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -312,6 +308,8 @@ public class SecondPage extends javax.swing.JFrame {
         }
         return b;
     }
+    
+    
 
     /**
      * @param args the command line arguments
