@@ -1,4 +1,4 @@
-package projec;
+package javaaplication1;
 
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
