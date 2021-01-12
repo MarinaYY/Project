@@ -1,4 +1,4 @@
-package project;
+package javaaplication1;
 
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
@@ -7,8 +7,11 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 /**
  *
@@ -43,8 +46,9 @@ public class SecondPage extends javax.swing.JFrame {
         txt_firstName = new javax.swing.JTextField();
         txt_lastName = new javax.swing.JTextField();
         txt_email = new javax.swing.JTextField();
-        txt_password = new javax.swing.JTextField();
-        txt_password2 = new javax.swing.JTextField();
+        txt_password = new javax.swing.JPasswordField();
+        txt_password2 = new javax.swing.JPasswordField();
+        btn_check = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setFocusCycleRoot(false);
@@ -121,9 +125,9 @@ public class SecondPage extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txt_firstName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txt_firstName))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -133,15 +137,23 @@ public class SecondPage extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(txt_email, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(txt_password, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(txt_password2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                    .addComponent(txt_password2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
+
+        btn_check.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
+        btn_check.setText("Провери");
+        btn_check.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_checkActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -155,17 +167,18 @@ public class SecondPage extends javax.swing.JFrame {
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 77, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(100, 100, 100))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(111, 111, 111))))))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(111, 111, 111))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btn_start, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(263, 263, 263))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btn_check, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_start, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE))
+                .addGap(239, 239, 239))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(54, 54, 54)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -174,9 +187,11 @@ public class SecondPage extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btn_check, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(btn_start, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
+                .addGap(40, 40, 40)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(45, 45, 45))
         );
@@ -194,117 +209,98 @@ public class SecondPage extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 582, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-SetGet obj;
-    private String error = "";
+
     private void btn_startActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_startActionPerformed
-        //връзка която затваря стария прозорец
         close();
-        //някъде в try прави грешка и всичко го извежда като nullpointerexceprion или не са навързани добре нещата от setget с нещата тук
+        ThirdPage test;
+        test = new ThirdPage();
+        test.setVisible(true);
+    }//GEN-LAST:event_btn_startActionPerformed
+
+    private void txt_emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_emailActionPerformed
+
+    }//GEN-LAST:event_txt_emailActionPerformed
+    SetGet obj;
+    private void btn_checkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_checkActionPerformed
+        String error = "";
+        txt_error.setText(null);
         try {
             obj = new SetGet(txt_firstName.getText(), txt_lastName.getText(), txt_email.getText(), txt_password.getText(), txt_password2.getText());
-            check();
-            if (dublicate() == false && "".equals(error)) {
+            obj.setFirstName(txt_firstName.getText());
+            obj.setLastName(txt_lastName.getText());
+            obj.setEmail(txt_email.getText());
+            obj.setPassword(txt_password.getText());
+            obj.setPassword2(txt_password2.getText());
+            if (dublicate() == false) {
                 write();
             } else {
                 error += "Вече съществува потребител със същия имейл адрес\n";
             }
-            ThirdPage test;
-            test = new ThirdPage();
-            test.setVisible(true);
-        } catch (NullPointerException e) {
-            System.out.println("NullPointerException");
+        } catch (WrongSecondPassword e3) {
+            error += "Грешна втора парола\n";
+        } catch (WrongEmailException e2) {
+            error += "Грешен имейл\n";
+        } catch (WrongFirstNameException ex) {
+            error += "Грешно първо име\n";
+        } catch (WrongLastNameException ex) {
+            error += "Грешно второ име\n";
         }
         txt_error.setText(error);
-        
-    }//GEN-LAST:event_btn_startActionPerformed
+    }//GEN-LAST:event_btn_checkActionPerformed
 
-    private void txt_emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_emailActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_emailActionPerformed
-    public void check() {
-        Pattern mail1 = Pattern.compile("\\w+@\\w+\\.[a-zA-Z]{2,3}", Pattern.LITERAL);
-        Matcher mail2 = mail1.matcher(obj.getEmail());
-        if (mail2.matches() == false) {
-            //error += "Грешно въведен имейл\n";
-            System.out.println("Грешно въведен имейл");
-        }
-        if (!(obj.getPassword2().equals(obj.getPassword()))) {
-            //error += "Грешна парола\n";
-            System.out.println("Грешна парола");
-        }
-    }
-    
-    //дали името е ок?
-    // не записва
- public void checkFirstName(){
-     //да започва с главна буква
-     Pattern firstName = Pattern.compile("\\p{Alpha}" + "^[A-Z]", Pattern.CASE_INSENSITIVE);
-     Matcher firstName2 = firstName.matcher(obj.getFirstName());
-     if(firstName2.matches() == false){
-        // error += "Грешно въведено име\n";
-         System.out.println("Грешно въведено име");
-     }
- }
- 
- public void checkLastName(){
-     Pattern lastName = Pattern.compile("\\p{Alpha}" + "^[A-Z]", Pattern.CASE_INSENSITIVE);
-     Matcher lastName2 = lastName.matcher(obj.getLastName());
-     if(lastName2.matches() == false){
-         //error += "Грешно въведено име\n";
-         System.out.println("Грешно въведено име");
-     }
- }
- 
- public void checkPassword(){
-     Pattern pass = Pattern.compile("", Pattern.LITERAL);
-     Matcher pass2 = pass.matcher(obj.getPassword());
-     if(pass2.matches() == false){
-         System.out.println("Грешно въведена парола");
-     }
- }
- 
- public void checkPasswordCheck(){
-    if(obj.getPassword() != obj.getPassword2()){
-        System.out.println("Грешна парола");
-    }
- }
-//не записва имена и фамилии с главни букви!!!!!!
     public void write() {
         FileWriter file = null;
         BufferedWriter br = null;
+        BufferedReader br1 = null;
         try {
-            file = new FileWriter("F:\\school\\New Folder\\Project\\project.txt", true);
+            
+             br1 = new BufferedReader(new FileReader("D:\\project.txt"));
+            String line1 = br1.readLine();
+            String all = "", t = "";
+            while (line1 != null) {
+                all += line1;
+                t += String.format("%s%n",line1);
+                line1 = br1.readLine();
+            }
+            file = new FileWriter("D:\\project.txt");
             br = new BufferedWriter(file);
-            br.write(obj.toString());
+            if(!all.equals("")){
+                t += String.format("%s",obj.toString());
+                br.write(t);
+            }else{
+                br.write(obj.toString());
+            }
+            
             br.close();
+            br1.close();
         } catch (IOException ioe) {
             System.out.println("IOException");
         }
     }
 
     public boolean dublicate() {
-        BufferedReader br = null;
+        BufferedReader br1 = null, br2 = null;
         FileReader file = null;
         boolean b = false;
         try {
-            file = new FileReader("F:\\school\\New Folder\\Project\\project.txt");
-            br = new BufferedReader(file);
-            String line = br.readLine();
-            while (line != null) {
-                String text[] = line.split(" ");
-                if (text[2].equals(obj.getEmail())) {
-                    b = true;
+            file = new FileReader("D:\\project.txt");
+            br2 = new BufferedReader(file);
+            String line2 = br2.readLine();
+                while (line2 != null) {
+                    String text[] = line2.split(" ");
+                    if (line2.length() != 0 && text[2].equals(obj.getEmail())) {
+                        b = true;
+                    }
+                    line2 = br2.readLine();
                 }
-                line = br.readLine();
-            }
-            br.close();
+            br2.close();
 
         } catch (IOException ioe) {
             System.out.println("IOException");
@@ -347,6 +343,7 @@ SetGet obj;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_check;
     private javax.swing.JButton btn_start;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -361,7 +358,7 @@ SetGet obj;
     private javax.swing.JTextArea txt_error;
     private javax.swing.JTextField txt_firstName;
     private javax.swing.JTextField txt_lastName;
-    private javax.swing.JTextField txt_password;
-    private javax.swing.JTextField txt_password2;
+    private javax.swing.JPasswordField txt_password;
+    private javax.swing.JPasswordField txt_password2;
     // End of variables declaration//GEN-END:variables
 }
