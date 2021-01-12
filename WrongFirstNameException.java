@@ -3,17 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package javaaplication1;
+package projec;
 
 /**
  *
- * @author Marina
+ * @author Mina
  */
-class WrongFirstNameException extends Exception{
-     public WrongFirstNameException(){
-        super();
-    }
-    public WrongFirstNameException(String errorMessage){
-        super("WrongFirstNameException" + errorMessage);
-    }
+public class WrongFirstNameException {
+    
 }

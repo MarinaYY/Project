@@ -1,4 +1,4 @@
-package javaaplication1;
+package projec;
 
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
@@ -7,8 +7,6 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
@@ -144,7 +142,7 @@ public class SecondPage extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(txt_password2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         btn_check.setFont(new java.awt.Font("Tahoma", 0, 22)); // NOI18N
@@ -166,19 +164,20 @@ public class SecondPage extends javax.swing.JFrame {
                         .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 77, Short.MAX_VALUE)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(111, 111, 111))))
+                        .addGap(0, 81, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(100, 100, 100))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(111, 111, 111))))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btn_check, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_start, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE))
                 .addGap(239, 239, 239))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(54, 54, 54)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -187,7 +186,7 @@ public class SecondPage extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addComponent(btn_check, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btn_start, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -209,7 +208,7 @@ public class SecondPage extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 582, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -238,48 +237,39 @@ public class SecondPage extends javax.swing.JFrame {
             obj.setEmail(txt_email.getText());
             obj.setPassword(txt_password.getText());
             obj.setPassword2(txt_password2.getText());
+            //System.out.println(obj.getFirstName() + " " + obj.getLastName() + " " + obj.getEmail() + " "+ obj.getPassword() + " " + obj.getPassword2());
             if (dublicate() == false) {
                 write();
             } else {
                 error += "Вече съществува потребител със същия имейл адрес\n";
             }
+            /*obj.setFirstName(null);
+            obj.setLastName(null);
+            obj.setEmail(null);
+            obj.setPassword(null);
+            obj.setPassword2(null);*/
+
         } catch (WrongSecondPassword e3) {
+            System.out.println("WrongSecondPassword");
             error += "Грешна втора парола\n";
         } catch (WrongEmailException e2) {
+            System.out.println("WrongEmailException");
             error += "Грешен имейл\n";
-        } catch (WrongFirstNameException ex) {
-            error += "Грешно първо име\n";
-        } catch (WrongLastNameException ex) {
-            error += "Грешно второ име\n";
+        } catch (NullPointerException e1) {
+            error += "Грешка\n";
         }
+        System.out.println(error);
         txt_error.setText(error);
     }//GEN-LAST:event_btn_checkActionPerformed
 
     public void write() {
         FileWriter file = null;
         BufferedWriter br = null;
-        BufferedReader br1 = null;
         try {
-            
-             br1 = new BufferedReader(new FileReader("D:\\project.txt"));
-            String line1 = br1.readLine();
-            String all = "", t = "";
-            while (line1 != null) {
-                all += line1;
-                t += String.format("%s%n",line1);
-                line1 = br1.readLine();
-            }
-            file = new FileWriter("D:\\project.txt");
+            file = new FileWriter("F:\\school\\New Folder\\Projec\\projec.txt", true);
             br = new BufferedWriter(file);
-            if(!all.equals("")){
-                t += String.format("%s",obj.toString());
-                br.write(t);
-            }else{
-                br.write(obj.toString());
-            }
-            
+            br.write(obj.toString());
             br.close();
-            br1.close();
         } catch (IOException ioe) {
             System.out.println("IOException");
         }
@@ -290,9 +280,17 @@ public class SecondPage extends javax.swing.JFrame {
         FileReader file = null;
         boolean b = false;
         try {
-            file = new FileReader("D:\\project.txt");
+            file = new FileReader("F:\\school\\New Folder\\Projec\\projec.txt");
+            br1 = new BufferedReader(file);
+            /*String line1 = br1.readLine();
+            String all = "";
+            while (line1 != null) {
+                all += line1;
+                line1 = br1.readLine();
+            }*/
             br2 = new BufferedReader(file);
             String line2 = br2.readLine();
+            //if (!(all.equals(""))) {
                 while (line2 != null) {
                     String text[] = line2.split(" ");
                     if (line2.length() != 0 && text[2].equals(obj.getEmail())) {
@@ -300,6 +298,9 @@ public class SecondPage extends javax.swing.JFrame {
                     }
                     line2 = br2.readLine();
                 }
+            //}
+
+            //br1.close();
             br2.close();
 
         } catch (IOException ioe) {
@@ -307,6 +308,8 @@ public class SecondPage extends javax.swing.JFrame {
         }
         return b;
     }
+    
+    
 
     /**
      * @param args the command line arguments
@@ -362,3 +365,5 @@ public class SecondPage extends javax.swing.JFrame {
     private javax.swing.JPasswordField txt_password2;
     // End of variables declaration//GEN-END:variables
 }
+//private javax.swing.JTextField txt_password;
+    //private javax.swing.JTextField txt_password2;

@@ -1,4 +1,4 @@
-package javaaplication1;
+package projec;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -16,15 +16,13 @@ public class SetGet {
         return firstName;
     }
 
-    public void setFirstName(String firstName) throws WrongFirstNameException {
-        Pattern fName = Pattern.compile("[A-Z][\\-\\,\\a-z\\.\\ ']+[ ]*");
-        Matcher fName2 = fName.matcher(firstName);
-        if (fName2.matches() == true) {
+    public void setFirstName(String firstName) {
+        if (firstName != null) {
+            
             this.firstName = firstName;
-     }
-            else{
-        throw new WrongFirstNameException();
-    
+
+        } else {
+            throw new NullPointerException();
         }
     }
 
@@ -32,15 +30,13 @@ public class SetGet {
         return lastName;
     }
 
-    public void setLastName(String lastName) throws WrongLastNameException {
-         Pattern lName = Pattern.compile("[A-Z][\\-\\,\\a-z\\.\\ ']+[ ]*");
-        Matcher lName2 = lName.matcher(lastName);
-        if (lName2.matches() == true) {
+    public void setLastName(String lastName) {
+        if (lastName != null) {
+            
             this.lastName = lastName;
-     }
-            else{
-        throw new WrongLastNameException();
-    
+
+        } else {
+            throw new NullPointerException();
         }
     }
 
@@ -66,6 +62,8 @@ public class SetGet {
     public void setPassword(String password) {
         if (password != null) {
             this.password = password;
+            
+
         } else {
            throw new NullPointerException();
         }
@@ -87,7 +85,7 @@ public class SetGet {
         return String.format("%s %s %s %s %s %n", getFirstName(), getLastName(), getEmail(), getPassword(), getPassword2());
     }
 
-    public SetGet(String firstName, String lastName, String email, String password, String password2) throws WrongSecondPassword, WrongEmailException, WrongFirstNameException, WrongLastNameException {
+    public SetGet(String firstName, String lastName, String email, String password, String password2) throws WrongSecondPassword, WrongEmailException {
         setFirstName(firstName);
         setLastName(lastName);
         setEmail(email);
@@ -95,11 +93,11 @@ public class SetGet {
         setPassword2(password2);
     }
 
-    public SetGet() throws WrongSecondPassword, WrongEmailException, WrongFirstNameException, WrongLastNameException {
+    public SetGet() throws WrongSecondPassword, WrongEmailException {
         this("-", "-", "-", "-", "-");
     }
 
-    public SetGet(SetGet obj) throws WrongSecondPassword, WrongEmailException, WrongFirstNameException, WrongLastNameException {
+    public SetGet(SetGet obj) throws WrongSecondPassword, WrongEmailException {
         this(obj.getFirstName(), obj.getLastName(), obj.getEmail(), obj.getPassword(), obj.getPassword2());
     }
 }
